@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # This specifies that the action should only run on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # You can specify your desired Node.js version here
+
+    - name: Install dependencies
+      run: npm ci  # You can use `npm install` if you prefer
+
+    - name: Build and Deploy
+      run: |
+        npm run build
+        npm run deploy
